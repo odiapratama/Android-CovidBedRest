@@ -1,9 +1,7 @@
 package com.bedrest.app.base.activity
 
-import com.bedrest.app.App
 import com.bedrest.app.R
-import com.bedrest.app.utils.ZoomLevel
-import com.bedrest.app.utils.bitmapDescriptorFromVector
+import com.bedrest.app.util.ZoomLevel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
@@ -19,7 +17,7 @@ interface BaseMapsActivity {
 
         markers.forEachIndexed { index, marker ->
             marker
-                .icon(bitmapDescriptorFromVector(App.INSTANCE.applicationContext, R.drawable.ic_hospital))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hospital))
                 .alpha(0.7f)
 
             map?.addMarker(marker)?.let {
@@ -36,7 +34,7 @@ interface BaseMapsActivity {
     fun addMarkers(marker: MarkerOptions, hospitalCode: String? = null, moveCamera: Boolean = true) {
         if (markerList.isNotEmpty()) markerList.forEach { it.remove() }.also { markerList.clear() }
         marker
-            .icon(bitmapDescriptorFromVector(App.INSTANCE.applicationContext, R.drawable.ic_hospital))
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hospital))
             .alpha(0.7f)
 
         map?.addMarker(marker)?.let {
