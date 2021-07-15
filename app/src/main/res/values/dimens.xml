@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="xxlarge">64dp</dimen>
+    <dimen name="xsmall_font">10sp</dimen>
+    <dimen name="small_font">12sp</dimen>
+    <dimen name="medium_font">14sp</dimen>
+    <dimen name="large_font">18sp</dimen>
+    <dimen name="xlarge_font">24sp</dimen>
+</resources>

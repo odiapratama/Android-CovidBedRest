@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="regular_xsmall">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">@dimen/xsmall_font</item>
+    </style>
+
+    <style name="regular_small">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">@dimen/small_font</item>
+    </style>
+
+    <style name="regular_small_white">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/small_font</item>
+    </style>
+
+    <style name="regular_small_sea_blue">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/sea_blue</item>
+        <item name="android:textSize">@dimen/small_font</item>
+    </style>
+
+    <style name="regular_medium">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">@dimen/medium_font</item>
+    </style>
+
+    <style name="semibold_large">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">@dimen/large_font</item>
+    </style>
+
+    <style name="semibold_xlarge">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">@dimen/xlarge_font</item>
+    </style>
+</resources>

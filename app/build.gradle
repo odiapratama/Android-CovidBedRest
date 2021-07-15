@@ -13,14 +13,14 @@ android {
 
     defaultConfig {
         applicationId "com.bedrest.app"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", "\"https://bed.ina-covid.com/api/\""
+        buildConfigField "String", "BASE_URL", "\"https://bed.ina-covid.com/\""
     }
 
 
@@ -50,6 +50,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // View
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     implementation "androidx.appcompat:appcompat:$appCompat_version"
     implementation "com.google.android.material:material:$material_version"

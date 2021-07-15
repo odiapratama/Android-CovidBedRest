@@ -18,8 +18,8 @@ class AvailabilityRepositoryImpl @Inject constructor(
         val result: ResultData<List<Availability>>
         withContext(Dispatchers.IO) {
             result = try {
-                val data = availabilityApi.getHospitalAvailability(province, revalidate)
-                ResultData.Success(data)
+                val response = availabilityApi.getHospitalAvailability(province, revalidate)
+                ResultData.Success(response.data)
             } catch (e: Exception) {
                 ResultData.Error(e)
             }
