@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BedRest</string>
+    <string name="ketersediaan_tempat">Ketersediaan tempat</string>
+    <string name="total_kasur">Total Kasur</string>
+    <string name="tersedia">Tersedia</string>
+    <string name="arahan">Arahan</string>
+    <string name="Telpon">Telpon</string>
+    <string name="detail_kasur">Detail Kasur</string>
+    <string name="prefix_last_update">Diperbaharui %s menit yang lalu</string>
 </resources>

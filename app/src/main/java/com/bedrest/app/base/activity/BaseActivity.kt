@@ -1,6 +1,7 @@
 package com.bedrest.app.base.activity
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ abstract class BaseActivity<V: ViewDataBinding>: AppCompatActivity(), BaseViewBi
         super.onCreate(savedInstanceState)
         initBinding(DataBindingUtil.setContentView(this, setLayout()), this)
         binding.lifecycleOwner = this
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         viewOnReady()
     }
 }
