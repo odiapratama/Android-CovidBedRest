@@ -1,8 +1,10 @@
 package com.bedrest.app.ui
 
+import android.content.Intent
 import com.bedrest.app.R
 import com.bedrest.app.base.activity.BaseActivity
 import com.bedrest.app.databinding.ActivityAvailabilityBinding
+import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +15,9 @@ class AvailabilityActivity : BaseActivity<ActivityAvailabilityBinding>() {
     override fun setLayout() = R.layout.activity_availability
 
     override fun viewOnReady() {
-
+        binding.tvHellp.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
+        }
         /*availabilityViewModel.getAvailability("Jakarta")
 
         availabilityViewModel.availability.observe(this, {
