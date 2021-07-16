@@ -1,5 +1,6 @@
 package com.bedrest.app.utils
 
+import android.content.Context
 import java.util.*
 
 object StringUtils {
@@ -10,4 +11,8 @@ object StringUtils {
     }
 
     fun String.toKeywordPattern() = lowercase(Locale.getDefault()).replace(" ", "_")
+
+    fun Context.getStringArray(id: Int): Array<out String> {
+        return resources.getStringArray(id)
+    }
 }
