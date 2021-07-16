@@ -10,122 +10,120 @@
             type="com.bedrest.app.data.model.Availability" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium"
-        app:cardCornerRadius="@dimen/small">
+        android:elevation="@dimen/xsmall"
+        android:background="@drawable/shape_rounded_white"
+        android:padding="@dimen/medium">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/medium">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/hospitalName"
+            style="@style/semibold_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/medium"
+            android:text="@{data.name}"
+            app:layout_constraintEnd_toStartOf="@id/tvAvailabilityTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Test" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/hospitalName"
-                style="@style/semibold_large"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/medium"
-                android:text="@{data.name}"
-                app:layout_constraintEnd_toStartOf="@id/tvAvailabilityTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Test" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAvailabilityTitle"
+            style="@style/regular_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tersedia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAvailabilityTitle"
-                style="@style/regular_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tersedia"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAddress"
+            style="@style/regular_small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginEnd="@dimen/medium"
+            android:text="@{data.address}"
+            app:layout_constraintEnd_toStartOf="@id/tvAvailabilityTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hospitalName"
+            tools:text="Test" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAddress"
-                style="@style/regular_small"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small"
-                android:layout_marginEnd="@dimen/medium"
-                android:text="@{data.address}"
-                app:layout_constraintEnd_toStartOf="@id/tvAvailabilityTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hospitalName"
-                tools:text="Test" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLastUpdated"
+            style="@style/regular_xsmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginEnd="@dimen/medium"
+            android:text="@{String.format(@string/prefix_last_update, data.updated_at_minutes)}"
+            app:layout_constraintEnd_toStartOf="@id/tvAvailabilityTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAddress"
+            tools:text="Test" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvLastUpdated"
-                style="@style/regular_xsmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small"
-                android:layout_marginEnd="@dimen/medium"
-                android:text="@{String.format(@string/prefix_last_update, data.updated_at_minutes)}"
-                app:layout_constraintEnd_toStartOf="@id/tvAvailabilityTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAddress"
-                tools:text="Test" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAvailability"
+            style="@style/semibold_xlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:text="@{data.available_bed}"
+            android:textColor="@{data.available_bed.equals(`0`) ? @color/tomato_red : @color/black}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAvailabilityTitle"
+            tools:text="10" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAvailability"
-                style="@style/semibold_xlarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small"
-                android:text="@{data.available_bed}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAvailabilityTitle"
-                tools:text="10" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDirection"
+            style="@style/regular_small_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginEnd="@dimen/small"
+            android:background="@drawable/shape_rounded_blue"
+            android:drawableStart="@drawable/ic_direction"
+            android:drawablePadding="@dimen/small"
+            android:paddingHorizontal="@dimen/small"
+            android:paddingVertical="@dimen/xsmall"
+            android:text="@string/arahan"
+            app:layout_constraintEnd_toStartOf="@id/tvDetail"
+            app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDirection"
-                style="@style/regular_small_white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small"
-                android:layout_marginEnd="@dimen/small"
-                android:background="@drawable/shape_rounded_blue"
-                android:drawableStart="@drawable/ic_direction"
-                android:drawablePadding="@dimen/small"
-                android:paddingHorizontal="@dimen/small"
-                android:paddingVertical="@dimen/xsmall"
-                android:text="@string/arahan"
-                app:layout_constraintEnd_toStartOf="@id/tvDetail"
-                app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDetail"
+            style="@style/regular_small_sea_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginEnd="@dimen/small"
+            android:background="@drawable/shape_rounded_white_blue_line"
+            android:drawableStart="@drawable/ic_bed_blue"
+            android:drawablePadding="@dimen/small"
+            android:paddingHorizontal="@dimen/small"
+            android:paddingVertical="@dimen/xsmall"
+            android:text="@string/detail_kasur"
+            app:layout_constraintEnd_toStartOf="@id/tvPhone"
+            app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDetail"
-                style="@style/regular_small_sea_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small"
-                android:layout_marginEnd="@dimen/small"
-                android:background="@drawable/shape_rounded_white_blue_line"
-                android:drawableStart="@drawable/ic_bed_blue"
-                android:drawablePadding="@dimen/small"
-                android:paddingHorizontal="@dimen/small"
-                android:paddingVertical="@dimen/xsmall"
-                android:text="@string/detail_kasur"
-                app:layout_constraintEnd_toStartOf="@id/tvPhone"
-                app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPhone"
+            style="@style/regular_small_sea_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:background="@drawable/shape_rounded_white_blue_line"
+            android:drawableStart="@drawable/ic_phone_blue"
+            android:drawablePadding="@dimen/small"
+            android:paddingHorizontal="@dimen/small"
+            android:paddingVertical="@dimen/xsmall"
+            android:text="@string/Telpon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvPhone"
-                style="@style/regular_small_sea_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small"
-                android:background="@drawable/shape_rounded_white_blue_line"
-                android:drawableStart="@drawable/ic_phone_blue"
-                android:drawablePadding="@dimen/small"
-                android:paddingHorizontal="@dimen/small"
-                android:paddingVertical="@dimen/xsmall"
-                android:text="@string/Telpon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
