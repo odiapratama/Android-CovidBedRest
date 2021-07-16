@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_grey">#C4C4C4</color>
     <color name="sea_blue">#4D86F3</color>
+    <color name="tomato_red">#C84960</color>
 </resources>
