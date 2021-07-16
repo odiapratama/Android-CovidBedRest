@@ -56,6 +56,12 @@ class AvailabilityActivity :
         })
         binding.rvAvailability.adapter = availabilityAdapter
 
+        suggestionAdapter = ProvinceSuggestionAdapter(getStringArray(R.array.list_provinces)) {
+            searchKey = it.toKeywordPattern()
+            availabilityViewModel.getAvailability(searchKey)
+        }
+        binding.rvSuggestion.adapter = suggestionAdapter
+
         val layoutParams = binding.motionLayout.layoutParams as CoordinatorLayout.LayoutParams
         val bottomSheetBehavior = layoutParams.behavior as BottomSheetBehavior
 
