@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_provinces">
+        <item>Aceh</item>
+        <item>Sumatera Utara</item>
+        <item>Sumatera Barat</item>
+        <item>Sumatera Riau</item>
+        <item>Jambi</item>
+        <item>Sumatera Selatan</item>
+        <item>Bengukulu</item>
+        <item>Lampung</item>
+        <item>Kepulauan Bangka Belitung</item>
+        <item>Kepulauan Riau</item>
+        <item>Riau</item>
+        <item>Jakarta</item>
+        <item>Jawa Barat</item>
+        <item>Jawa Tengah</item>
+        <item>Yogyakarta</item>
+        <item>Jawa Timur</item>
+        <item>Banten</item>
+        <item>Bali</item>
+        <item>Nusa Tenggara Barat</item>
+        <item>Nusa Tenggara Timur</item>
+        <item>Kalimantan Barat</item>
+        <item>Kalimantan Tengah</item>
+        <item>Kalimantan Selatan</item>
+        <item>Kalimantan Timur</item>
+        <item>Kalimantan Utara</item>
+        <item>Sulawesi Utara</item>
+        <item>Sulawesi Tengah</item>
+        <item>Sulawesi Selatan</item>
+        <item>Sulawesi Tenggara</item>
+        <item>Gorontalo</item>
+        <item>Sulawesi Barat</item>
+        <item>Maluku</item>
+        <item>Papua Barat</item>
+        <item>Papua</item>
+    </string-array>
+</resources>
