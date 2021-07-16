@@ -85,7 +85,7 @@ class AvailabilityActivity :
                         it.data.sumOf { item -> item.available_bed.toInt() }.toString()
                     availabilityAdapter.submitList(it.data)
                     binding.tvTitleAvailability.visible()
-                    binding.tvTitleBedRest.text = getString(R.string.tersedia)
+                    binding.tvTitleBedRest.text = getString(R.string.total_kasur)
                     addMarkersData(it.data)
                 }
                 is ResultData.Error -> Toast.makeText(
