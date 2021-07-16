@@ -14,15 +14,16 @@ interface BaseMapsActivity {
     fun mapNotReady()
     fun onMarkerClicked(marker: Marker)
 
-    fun addMarkers(markers: List<MarkerOptions>, moveCamera: Boolean = true) {
+    fun addMarkers(markers: List<MarkerOptions>, hospitalCode: List<String>? = null, moveCamera: Boolean = true) {
         if (markerList.isNotEmpty()) markerList.forEach { it.remove() }.also { markerList.clear() }
 
-        markers.forEach { marker ->
+        markers.forEachIndexed { index, marker ->
             marker
                 .icon(bitmapDescriptorFromVector(App.INSTANCE.applicationContext, R.drawable.ic_hospital))
                 .alpha(0.7f)
 
             mMap?.addMarker(marker)?.let {
+                it.tag = hospitalCode?.get(index) ?: ""
                 markerList.add(it)
             }
         }
@@ -32,7 +33,7 @@ interface BaseMapsActivity {
         }
     }
 
-    fun addMarkers(marker: MarkerOptions, moveCamera: Boolean = true) {
+    fun addMarkers(marker: MarkerOptions, hospitalCode: String? = null, moveCamera: Boolean = true) {
         if (markerList.isNotEmpty()) markerList.forEach { it.remove() }.also { markerList.clear() }
         marker
             .icon(bitmapDescriptorFromVector(App.INSTANCE.applicationContext, R.drawable.ic_hospital))
