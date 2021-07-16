@@ -20,6 +20,8 @@ class AvailabilityViewModel @Inject constructor(
     val availability: LiveData<ResultData<List<Availability>>>
         get() = _availability
 
+    val hospitalList = ArrayList<Availability>()
+
     fun getAvailability(
         province: String,
         revalidate: Boolean = false
@@ -28,7 +30,17 @@ class AvailabilityViewModel @Inject constructor(
         viewModelScope.launch {
             availabilityRepository.getHospitalAvailability(province, revalidate).let {
                 _availability.postValue(it)
+                hospitalList.clear()
+
+                if (it is ResultData.Success) {
+                    hospitalList.addAll(it.data)
+                }
             }
         }
+    }
+
+    fun findHospital(hospitalCode: String?): Availability? {
+        if (hospitalCode.isNullOrEmpty()) return null
+        return hospitalList.find { it.hospital_code == hospitalCode }
     }
 }
