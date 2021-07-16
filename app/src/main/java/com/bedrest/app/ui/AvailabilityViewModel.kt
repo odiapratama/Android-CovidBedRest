@@ -20,7 +20,7 @@ class AvailabilityViewModel @Inject constructor(
     val availability: LiveData<ResultData<List<Availability>>>
         get() = _availability
 
-    val hospitalList = ArrayList<Availability>()
+    private val hospitalList = ArrayList<Availability>()
 
     fun getAvailability(
         province: String,
