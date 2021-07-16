@@ -3,133 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="data"
-            type="com.bedrest.app.ui.AvailabilityViewModel" />
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         tools:context=".ui.AvailabilityActivity">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/maps"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabCurrentLocation"
+        <TextView
+            android:id="@+id/tvHellp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="@dimen/medium"
-            android:layout_marginBottom="@dimen/xxxlarge"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_check_location"
-            app:tint="@color/white" />
+            android:text="Hello World!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/medium"
-            android:layout_marginTop="@dimen/xxlarge"
-            android:background="@color/white"
-            android:elevation="@dimen/xxsmall"
-            app:searchIcon="@drawable/ic_search" />
-
-        <androidx.constraintlayout.motion.widget.MotionLayout
-            android:id="@+id/motionLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:behavior_hideable="false"
-            app:behavior_peekHeight="100dp"
-            app:layoutDescription="@xml/activity_availability_scene"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light_grey"
-                app:cardCornerRadius="@dimen/small"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvTitleAvailability"
-                        style="@style/regular_medium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/medium"
-                        android:text="@string/ketersediaan_tempat"
-                        app:layout_constraintEnd_toStartOf="@id/tvTitleBedRest"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvTitleBedRest"
-                        style="@style/regular_medium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/medium"
-                        android:text="@string/total_kasur"
-                        android:textAlignment="textEnd"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tvTitleAvailability"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvCity"
-                        style="@style/semibold_large"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/medium"
-                        android:layout_marginTop="@dimen/small"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitleAvailability"
-                        tools:text="Bandung" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvTotal"
-                        style="@style/semibold_large"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/small"
-                        android:layout_marginEnd="@dimen/medium"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitleAvailability"
-                        tools:text="100" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/small"
-                        android:src="@drawable/ic_bed_black"
-                        app:layout_constraintBottom_toBottomOf="@id/tvTotal"
-                        app:layout_constraintEnd_toStartOf="@id/tvTotal"
-                        app:layout_constraintTop_toTopOf="@id/tvTotal" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvAvailability"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/small"
-                        android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvCity" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.motion.widget.MotionLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
