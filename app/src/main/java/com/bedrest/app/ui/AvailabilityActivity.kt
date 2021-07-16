@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import com.bedrest.app.R
 import com.bedrest.app.base.activity.BaseActivity
 import com.bedrest.app.base.activity.BaseMapsActivity
@@ -14,6 +15,9 @@ import com.bedrest.app.utils.DebounceQuerySearchListener
 import com.bedrest.app.utils.IntentUtils.openDialer
 import com.bedrest.app.utils.IntentUtils.openMaps
 import com.bedrest.app.utils.IntentUtils.openWeb
+import com.bedrest.app.utils.StringUtils.checkLatPattern
+import com.bedrest.app.utils.StringUtils.checkLonPattern
+import com.bedrest.app.utils.StringUtils.getStringArray
 import com.bedrest.app.utils.StringUtils.toCapitalized
 import com.bedrest.app.utils.StringUtils.toKeywordPattern
 import com.bedrest.app.utils.UIUtils.invisible
@@ -23,6 +27,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -34,9 +39,10 @@ class AvailabilityActivity :
 
     private val availabilityViewModel by viewModels<AvailabilityViewModel>()
     private lateinit var availabilityAdapter: AvailabilityAdapter
+    private lateinit var suggestionAdapter: ProvinceSuggestionAdapter
     private val defaultKeyword = "jakarta"
     private var searchKey = defaultKeyword
-    override var mMap: GoogleMap? = null
+    override var map: GoogleMap? = null
     override val markerList = ArrayList<Marker>(emptyList())
 
     override fun setLayout() = R.layout.activity_availability
@@ -87,8 +93,14 @@ class AvailabilityActivity :
                 is ResultData.Loading -> Unit
                 is ResultData.Success -> {
                     binding.tvCity.text = searchKey.toCapitalized()
-                    binding.tvTotal.text =
-                        it.data.sumOf { item -> item.available_bed.toInt() }.toString()
+                    val total = it.data.sumOf { item -> item.available_bed.toInt() }
+                    binding.tvTotal.text = total.toString()
+                    if (total == 0) binding.tvTotal.setTextColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.tomato_red
+                        )
+                    )
                     availabilityAdapter.submitList(it.data)
                     binding.tvTitleAvailability.visible()
                     binding.tvTitleBedRest.text = getString(R.string.total_kasur)
@@ -104,10 +116,12 @@ class AvailabilityActivity :
     }
 
     private fun addMarkersData(data: List<Availability>) {
-        val markers = data.map {
-            val coord = LatLng(it.lat.toDouble(), it.lon.toDouble())
+        val markers = data.filter {
+            it.lat.checkLatPattern() && it.lon.checkLonPattern()
+        }.map {
+            val coordinate = LatLng(it.lat.toDouble(), it.lon.toDouble())
             MarkerOptions()
-                .position(coord)
+                .position(coordinate)
                 .title(it.name)
         }
 
@@ -116,18 +130,9 @@ class AvailabilityActivity :
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        val jktCoord = LatLng(-6.200000, 106.816666)
-        val jktMarker = MarkerOptions().position(jktCoord)
-        addMarkers(jktMarker, null, false)
-        moveCameraTo(jktCoord, ZoomLevel.CONTINENT)
-
-        mMap?.setOnMarkerClickListener {
-            onMarkerClicked(it)
-            it.showInfoWindow()
-            true
-        }
+        map = googleMap
+        map?.uiSettings?.isCompassEnabled = false
+        map?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_style))
     }
 
     override fun onMarkerClicked(marker: Marker) {
