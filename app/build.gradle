@@ -54,6 +54,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     implementation "androidx.appcompat:appcompat:$appCompat_version"
     implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.activity:activity-ktx:$activity_version"
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
