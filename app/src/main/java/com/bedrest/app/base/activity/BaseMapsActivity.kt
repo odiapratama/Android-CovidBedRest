@@ -9,7 +9,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 
 interface BaseMapsActivity {
-    var mMap: GoogleMap?
+    var map: GoogleMap?
     val markerList: ArrayList<Marker>
     fun mapNotReady()
     fun onMarkerClicked(marker: Marker)
@@ -22,7 +22,7 @@ interface BaseMapsActivity {
                 .icon(bitmapDescriptorFromVector(App.INSTANCE.applicationContext, R.drawable.ic_hospital))
                 .alpha(0.7f)
 
-            mMap?.addMarker(marker)?.let {
+            map?.addMarker(marker)?.let {
                 it.tag = hospitalCode?.get(index) ?: ""
                 markerList.add(it)
             }
@@ -39,7 +39,7 @@ interface BaseMapsActivity {
             .icon(bitmapDescriptorFromVector(App.INSTANCE.applicationContext, R.drawable.ic_hospital))
             .alpha(0.7f)
 
-        mMap?.addMarker(marker)?.let {
+        map?.addMarker(marker)?.let {
             markerList.add(it)
         }
 
@@ -49,7 +49,7 @@ interface BaseMapsActivity {
     }
 
     fun moveCameraTo(coord: LatLng, zoomLevel: ZoomLevel) {
-        mMap?.animateCamera(
+        map?.animateCamera(
             CameraUpdateFactory
                 .newLatLngZoom(coord, zoomLevel.value)
         )
@@ -64,7 +64,7 @@ interface BaseMapsActivity {
 
         val bounds = LatLngBounds(southWestCoord, northEastCoord)
 
-        mMap?.animateCamera(
+        map?.animateCamera(
             CameraUpdateFactory
                 .newLatLngBounds(bounds, 300)
         )

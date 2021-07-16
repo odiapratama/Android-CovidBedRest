@@ -33,15 +33,36 @@
             android:src="@drawable/ic_check_location"
             app:tint="@color/white" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/medium"
-            android:layout_marginTop="@dimen/xxlarge"
-            android:background="@color/white"
-            android:elevation="@dimen/xxsmall"
-            app:searchIcon="@drawable/ic_search" />
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium"
+                android:layout_marginTop="@dimen/xlarge"
+                android:background="@color/white"
+                android:elevation="@dimen/xxsmall"
+                app:layout_constraintTop_toTopOf="parent"
+                app:searchIcon="@drawable/ic_search" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:elevation="@dimen/xxsmall"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/medium"
+                android:paddingEnd="@dimen/small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/searchView"
+                tools:itemCount="11"
+                tools:listitem="@layout/item_province_suggestion" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motionLayout"
@@ -63,6 +84,15 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="@dimen/small"
+                        android:background="@drawable/shape_rounded_grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvTitleAvailability"
@@ -122,7 +152,7 @@
                         android:id="@+id/rvAvailability"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/small"
+                        android:layout_marginTop="@dimen/large"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
