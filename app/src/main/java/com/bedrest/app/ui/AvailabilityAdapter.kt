@@ -9,9 +9,10 @@ import com.bedrest.app.data.model.Availability
 import com.bedrest.app.databinding.ItemAvailabilityBinding
 
 class AvailabilityAdapter(
-    private val onDirectionListener: () -> Unit
-) :
-    ListAdapter<Availability, AvailabilityAdapter.AvailabilityViewHolder>(DiffCallback()) {
+    private val onDirectionListener: (String, String, String) -> Unit,
+    private val onDetailListener: (String) -> Unit,
+    private val onPhoneListener: (String) -> Unit
+) : ListAdapter<Availability, AvailabilityAdapter.AvailabilityViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvailabilityViewHolder {
         return AvailabilityViewHolder(
@@ -33,7 +34,13 @@ class AvailabilityAdapter(
             binding.data = dataItem
             binding.executePendingBindings()
             binding.tvDirection.setOnClickListener {
-                onDirectionListener()
+                onDirectionListener(dataItem.lat, dataItem.lon, dataItem.name)
+            }
+            binding.tvDetail.setOnClickListener {
+                onDetailListener(dataItem.bed_detail_link)
+            }
+            binding.tvPhone.setOnClickListener {
+                onPhoneListener(dataItem.hotline)
             }
         }
     }
