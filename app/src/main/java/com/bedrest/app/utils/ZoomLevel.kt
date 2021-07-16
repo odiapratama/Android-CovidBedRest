@@ -1,4 +1,4 @@
-package com.bedrest.app.util
+package com.bedrest.app.utils
 
 enum class ZoomLevel(val value: Float) {
     WORLD(1f),

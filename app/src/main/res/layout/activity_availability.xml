@@ -16,6 +16,23 @@
         android:background="@color/black"
         tools:context=".ui.AvailabilityActivity">
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/maps"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabCurrentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/medium"
+            android:layout_marginBottom="@dimen/xxxlarge"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_check_location"
+            app:tint="@color/white" />
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
@@ -23,6 +40,7 @@
             android:layout_marginHorizontal="@dimen/medium"
             android:layout_marginTop="@dimen/xxlarge"
             android:background="@color/white"
+            android:elevation="@dimen/xxsmall"
             app:searchIcon="@drawable/ic_search" />
 
         <androidx.constraintlayout.motion.widget.MotionLayout

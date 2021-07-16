@@ -2,7 +2,7 @@ package com.bedrest.app.base.activity
 
 import com.bedrest.app.App
 import com.bedrest.app.R
-import com.bedrest.app.util.ZoomLevel
+import com.bedrest.app.utils.ZoomLevel
 import com.bedrest.app.utils.bitmapDescriptorFromVector
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

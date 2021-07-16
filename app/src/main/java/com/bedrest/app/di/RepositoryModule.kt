@@ -15,7 +15,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun availabilityRepository(@AppModule.AvailabilityClientApi trendingApi: AvailabilityApi): AvailabilityRepository {
-        return AvailabilityRepositoryImpl(trendingApi)
+    fun availabilityRepository(@AppModule.AvailabilityClientApi availabilityApi: AvailabilityApi): AvailabilityRepository {
+        return AvailabilityRepositoryImpl(availabilityApi)
     }
 }
