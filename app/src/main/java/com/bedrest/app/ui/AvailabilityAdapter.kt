@@ -2,9 +2,11 @@ package com.bedrest.app.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bedrest.app.R
 import com.bedrest.app.data.model.Availability
 import com.bedrest.app.databinding.ItemAvailabilityBinding
 
@@ -32,6 +34,13 @@ class AvailabilityAdapter(
 
         fun bindTo(dataItem: Availability) {
             binding.data = dataItem
+            if (dataItem.available_bed == "0") {
+                binding.clParent.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_rounded_grey_red_line)
+                binding.clParent.alpha = 0.5f
+            } else {
+                binding.clParent.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_rounded_white)
+                binding.clParent.alpha = 1f
+            }
             binding.executePendingBindings()
             binding.tvDirection.setOnClickListener {
                 onDirectionListener(dataItem.lat, dataItem.lon, dataItem.name)
