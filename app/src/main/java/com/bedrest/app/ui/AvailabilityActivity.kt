@@ -20,6 +20,7 @@ import com.bedrest.app.utils.StringUtils.checkLonPattern
 import com.bedrest.app.utils.StringUtils.getStringArray
 import com.bedrest.app.utils.StringUtils.toCapitalized
 import com.bedrest.app.utils.StringUtils.toKeywordPattern
+import com.bedrest.app.utils.UIUtils.afterMeasured
 import com.bedrest.app.utils.UIUtils.gone
 import com.bedrest.app.utils.UIUtils.visible
 import com.bedrest.app.utils.ZoomLevel
@@ -92,7 +93,12 @@ class AvailabilityActivity :
             when (it) {
                 is ResultData.Loading -> Unit
                 is ResultData.Success -> {
-                    bottomSheetBehavior.setPeekHeight(300, true)
+                    binding.containerDefaultState.afterMeasured {
+                        bottomSheetBehavior.setPeekHeight(
+                            binding.containerDefaultState.height,
+                            true
+                        )
+                    }
                     binding.tvCity.text = searchKey.toCapitalized()
                     val total = it.data.sumOf { item -> item.available_bed.toInt() }
                     binding.tvTotal.text = total.toString()
@@ -142,7 +148,9 @@ class AvailabilityActivity :
         binding.motionLayout
         moveCameraTo(marker.position, ZoomLevel.STREETS)
         marker.showInfoWindow()
-        bottomSheetBehavior.setPeekHeight(600, true)
+        binding.containerMarkerClickedState.afterMeasured {
+            bottomSheetBehavior.setPeekHeight(binding.containerMarkerClickedState.height, true)
+        }
 
         val hospitalJson = Gson().fromJson((marker.tag as String), Availability::class.java)
 
