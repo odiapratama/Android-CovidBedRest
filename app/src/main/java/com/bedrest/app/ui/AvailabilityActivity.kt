@@ -145,7 +145,6 @@ class AvailabilityActivity :
     }
 
     override fun onMarkerClicked(marker: Marker): Boolean {
-        binding.motionLayout
         moveCameraTo(marker.position, ZoomLevel.STREETS)
         marker.showInfoWindow()
         binding.containerMarkerClickedState.afterMeasured {
