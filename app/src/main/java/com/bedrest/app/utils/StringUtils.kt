@@ -5,7 +5,7 @@ import java.util.*
 
 object StringUtils {
 
-    fun String.toCapitalized() = replaceFirstChar { char ->
+    fun String.convertKeyword() = replace("_", " ").replaceFirstChar { char ->
         if (char.isLowerCase()) char.titlecase(Locale.getDefault())
         else char.toString()
     }
