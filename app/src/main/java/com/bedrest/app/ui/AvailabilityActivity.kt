@@ -1,7 +1,6 @@
 package com.bedrest.app.ui
 
 import android.view.View
-import android.view.Window
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -80,8 +79,6 @@ class AvailabilityActivity :
             override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 binding.motionLayout.progress = slideOffset
-                if (slideOffset == 0f) binding.fabCurrentLocation.show()
-                else binding.fabCurrentLocation.hide()
             }
         })
 
@@ -155,10 +152,15 @@ class AvailabilityActivity :
         binding.tvHospitalName.text = hospital?.name
         binding.tvTotalHospitalBed.text = hospital?.available_bed
         binding.tvAddress.text = hospital?.address
-        binding.tvLastUpdated.text = getString(R.string.prefix_last_update, hospital?.updated_at_minutes.toString())
+        binding.tvLastUpdated.text =
+            getString(R.string.prefix_last_update, hospital?.updated_at_minutes.toString())
 
         binding.tvDirection.setOnClickListener {
-            openMaps(marker.position.latitude.toString(), marker.position.longitude.toString(), hospitalJson.name)
+            openMaps(
+                marker.position.latitude.toString(),
+                marker.position.longitude.toString(),
+                hospitalJson.name
+            )
         }
 
         binding.tvDetail.setOnClickListener {
