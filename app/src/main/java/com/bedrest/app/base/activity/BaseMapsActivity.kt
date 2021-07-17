@@ -2,19 +2,21 @@ package com.bedrest.app.base.activity
 
 import com.bedrest.app.App
 import com.bedrest.app.R
+import com.bedrest.app.data.model.Availability
 import com.bedrest.app.utils.ZoomLevel
 import com.bedrest.app.utils.bitmapDescriptorFromVector
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
+import com.google.gson.Gson
 
 interface BaseMapsActivity {
     var map: GoogleMap?
     val markerList: ArrayList<Marker>
     fun mapNotReady()
-    fun onMarkerClicked(marker: Marker)
+    fun onMarkerClicked(marker: Marker): Boolean
 
-    fun addMarkers(markers: List<MarkerOptions>, hospitalCode: List<String>? = null, moveCamera: Boolean = true) {
+    fun addMarkers(markers: List<MarkerOptions>, hosiptals: List<Availability>? = null, moveCamera: Boolean = true) {
         if (markerList.isNotEmpty()) markerList.forEach { it.remove() }.also { markerList.clear() }
 
         markers.forEachIndexed { index, marker ->
@@ -23,7 +25,7 @@ interface BaseMapsActivity {
                 .alpha(0.7f)
 
             map?.addMarker(marker)?.let {
-                it.tag = hospitalCode?.get(index) ?: ""
+                it.tag = Gson().toJson(hosiptals?.get(index))
                 markerList.add(it)
             }
         }
