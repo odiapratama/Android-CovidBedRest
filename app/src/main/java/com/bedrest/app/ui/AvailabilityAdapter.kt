@@ -51,6 +51,13 @@ class AvailabilityAdapter(
             binding.tvPhone.setOnClickListener {
                 onPhoneListener(dataItem.hotline)
             }
+            if (dataItem.hotline.isEmpty()) {
+                binding.tvPhone.isClickable = false
+                binding.tvPhone.alpha = 0.5f
+            } else {
+                binding.tvPhone.isClickable = true
+                binding.tvPhone.alpha = 1f
+            }
         }
     }
 

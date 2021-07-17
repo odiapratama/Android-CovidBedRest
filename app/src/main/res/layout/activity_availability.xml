@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
+        android:fitsSystemWindows="false"
+        android:focusableInTouchMode="true"
         tools:context=".ui.AvailabilityActivity">
 
         <androidx.fragment.app.FragmentContainerView
@@ -24,7 +26,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
@@ -32,8 +35,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium"
                 android:layout_marginTop="@dimen/xlarge"
-                android:background="@color/white"
+                android:background="@drawable/shape_rounded_white"
                 android:elevation="@dimen/xxsmall"
+                android:focusable="false"
+                app:iconifiedByDefault="true"
                 app:layout_constraintTop_toTopOf="parent"
                 app:searchIcon="@drawable/ic_search" />
 
@@ -144,6 +149,7 @@
                             app:layout_constraintBottom_toBottomOf="@id/tvTotal"
                             app:layout_constraintEnd_toStartOf="@id/tvTotal"
                             app:layout_constraintTop_toTopOf="@id/tvTotal" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -270,6 +276,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvAvailability"
+                        style="@style/support_background"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:orientation="vertical"

@@ -18,7 +18,7 @@ import com.bedrest.app.utils.IntentUtils.openWeb
 import com.bedrest.app.utils.StringUtils.checkLatPattern
 import com.bedrest.app.utils.StringUtils.checkLonPattern
 import com.bedrest.app.utils.StringUtils.getStringArray
-import com.bedrest.app.utils.StringUtils.toCapitalized
+import com.bedrest.app.utils.StringUtils.convertKeyword
 import com.bedrest.app.utils.StringUtils.toKeywordPattern
 import com.bedrest.app.utils.UIUtils.afterMeasured
 import com.bedrest.app.utils.UIUtils.gone
@@ -54,6 +54,13 @@ class AvailabilityActivity :
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.maps) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        binding.root.requestFocus()
+        binding.searchView.apply {
+            setOnClickListener {
+                isIconified = false
+            }
+        }
 
         availabilityViewModel.getAvailability(searchKey)
         availabilityAdapter = AvailabilityAdapter({ lat, long, key ->
@@ -99,7 +106,7 @@ class AvailabilityActivity :
                             true
                         )
                     }
-                    binding.tvCity.text = searchKey.toCapitalized()
+                    binding.tvCity.text = searchKey.convertKeyword()
                     val total = it.data.sumOf { item -> item.available_bed.toInt() }
                     binding.tvTotal.text = total.toString()
                     if (total == 0) binding.tvTotal.setTextColor(
