@@ -18,6 +18,7 @@
         android:layout_marginVertical="@dimen/small"
         android:paddingVertical="@dimen/xsmall"
         android:paddingHorizontal="@dimen/small"
+        style="@style/regular_small"
         android:background="@drawable/shape_rounded_white"
         android:layout_marginEnd="@dimen/small"
         tools:text="Bandung">
