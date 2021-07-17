@@ -87,6 +87,8 @@
                         android:id="@+id/containerDefaultState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/large"
+                        android:visibility="visible"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -94,7 +96,7 @@
                             style="@style/regular_medium"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/medium"
+                            android:layout_marginHorizontal="@dimen/medium"
                             android:text="@string/ketersediaan_tempat"
                             app:layout_constraintEnd_toStartOf="@id/tvTitleBedRest"
                             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +107,7 @@
                             style="@style/regular_medium"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/medium"
+                            android:layout_marginHorizontal="@dimen/medium"
                             android:text="@string/total_kasur"
                             android:textAlignment="textEnd"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -148,6 +150,7 @@
                         android:id="@+id/containerMarkerClickedState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/large"
                         android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@id/containerDefaultState">
 
@@ -156,10 +159,9 @@
                             style="@style/regular_medium"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/large"
+                            android:layout_marginEnd="@dimen/large"
                             android:text="@string/tersedia"
                             android:textAlignment="textEnd"
-                            app:layout_constraintBottom_toBottomOf="@id/tvHospitalName"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/tvHospitalName" />
 
@@ -169,19 +171,18 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/medium"
-                            android:layout_marginTop="@dimen/large"
                             android:layout_marginEnd="@dimen/small"
                             app:layout_constraintEnd_toStartOf="@id/tvTitleBedRestAvailability"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="Bandung" />
+                            tools:text="Bandung " />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvTotalHospitalBed"
                             style="@style/semibold_large"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/small"
+                            android:layout_marginTop="@dimen/xxsmall"
                             app:layout_constraintEnd_toEndOf="@+id/tvTitleBedRestAvailability"
                             app:layout_constraintHorizontal_chainStyle="packed"
                             app:layout_constraintStart_toEndOf="@id/imgBed"
@@ -224,7 +225,7 @@
                             style="@style/regular_small_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/small"
+                            android:layout_marginTop="@dimen/medium"
                             android:layout_marginEnd="@dimen/small"
                             android:background="@drawable/shape_rounded_blue"
                             android:drawableStart="@drawable/ic_direction"
@@ -240,7 +241,6 @@
                             style="@style/regular_small_sea_blue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/small"
                             android:layout_marginEnd="@dimen/small"
                             android:background="@drawable/shape_rounded_white_blue_line"
                             android:drawableStart="@drawable/ic_bed_blue"
@@ -249,14 +249,13 @@
                             android:paddingVertical="@dimen/xsmall"
                             android:text="@string/detail_kasur"
                             app:layout_constraintEnd_toStartOf="@id/tvPhone"
-                            app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
+                            app:layout_constraintTop_toTopOf="@id/tvDirection" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvPhone"
                             style="@style/regular_small_sea_blue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/small"
                             android:layout_marginEnd="@dimen/large"
                             android:background="@drawable/shape_rounded_white_blue_line"
                             android:drawableStart="@drawable/ic_phone_blue"
@@ -265,7 +264,7 @@
                             android:paddingVertical="@dimen/xsmall"
                             android:text="@string/Telpon"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tvLastUpdated" />
+                            app:layout_constraintTop_toTopOf="@+id/tvDetail" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -273,7 +272,6 @@
                         android:id="@+id/rvAvailability"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/large"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
