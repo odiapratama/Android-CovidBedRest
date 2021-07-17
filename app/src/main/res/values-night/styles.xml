@@ -41,6 +41,6 @@
     </style>
 
     <style name="support_background">
-        <item name="background">@color/light_grey</item>
+        <item name="background">@color/black</item>
     </style>
 </resources>
