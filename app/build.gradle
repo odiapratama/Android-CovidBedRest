@@ -70,8 +70,6 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidX_version"
-    kapt "androidx.hilt:hilt-compiler:$hiltAndroidX_version"
 
     // Maps
     implementation "com.google.android.gms:play-services-location:18.0.0"
