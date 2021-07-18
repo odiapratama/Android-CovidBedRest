@@ -29,20 +29,30 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+      - name: Access API KEY
+        env:
+          APOD_API_KEY: ${{ secrets.MAPS_API_KEY }}
+        run: echo MAPS_API_KEY=\"MAPS_API_KEY\" > ./apikey.properties
+
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
+
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
           name: app-dev-debug
           path: app/build/outputs/apk/dev/debug/app-dev-debug.apk
+
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Download app APK
         uses: actions/download-artifact@v2
         with:
           name: app-dev-debug
           path: app/build/outputs/apk/dev/debug
+
       - name: Upload to slack step
         uses: adrey/slack-file-upload-action@master
         with:
