@@ -57,7 +57,7 @@ jobs:
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          path: app/build/outputs/apk/dev/debug/app-dev-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           channel: apk-release
           
   slack-notification-with-optional-parameters:
