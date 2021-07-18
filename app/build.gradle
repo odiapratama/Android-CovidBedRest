@@ -7,10 +7,6 @@ plugins {
 
 apply plugin: 'dagger.hilt.android.plugin'
 
-def apikeyPropertiesFile = rootProject.file("apikey.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -88,7 +84,7 @@ dependencies {
 }
 
 String getApiKey() {
-    def propFile = rootProject.file("./apikey.properties")
+    def propFile = rootProject.file("./local.properties")
     def properties = new Properties()
     properties.load(new FileInputStream(propFile))
     return properties['MAPS_API_KEY']
