@@ -41,8 +41,8 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: app-dev-debug
-          path: app/build/outputs/apk/dev/debug/app-dev-debug.apk
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -50,14 +50,14 @@ jobs:
       - name: Download app APK
         uses: actions/download-artifact@v2
         with:
-          name: app-dev-debug
-          path: app/build/outputs/apk/dev/debug
+          name: app-debug
+          path: app/build/outputs/apk/debug
 
       - name: Upload to slack step
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          path: app/build/outputs/apk/dev/debug/app-dev-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           channel: apk-release
           
   slack-notification-with-optional-parameters:
