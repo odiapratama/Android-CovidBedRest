@@ -1,5 +1,6 @@
 package com.bedrest.app.ui
 
+import android.content.res.Configuration
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,13 +18,15 @@ import com.bedrest.app.utils.IntentUtils.openMaps
 import com.bedrest.app.utils.IntentUtils.openWeb
 import com.bedrest.app.utils.StringUtils.checkLatPattern
 import com.bedrest.app.utils.StringUtils.checkLonPattern
-import com.bedrest.app.utils.StringUtils.getStringArray
 import com.bedrest.app.utils.StringUtils.convertKeyword
+import com.bedrest.app.utils.StringUtils.getStringArray
 import com.bedrest.app.utils.StringUtils.toKeywordPattern
 import com.bedrest.app.utils.UIUtils.afterMeasured
 import com.bedrest.app.utils.UIUtils.gone
 import com.bedrest.app.utils.UIUtils.visible
 import com.bedrest.app.utils.ZoomLevel
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.createSkeleton
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -42,6 +45,7 @@ class AvailabilityActivity :
     private val availabilityViewModel by viewModels<AvailabilityViewModel>()
     private lateinit var availabilityAdapter: AvailabilityAdapter
     private lateinit var suggestionAdapter: ProvinceSuggestionAdapter
+    private lateinit var skeleton: Skeleton
     private val defaultKeyword = "jakarta"
     private var searchKey = defaultKeyword
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
@@ -55,12 +59,7 @@ class AvailabilityActivity :
             .findFragmentById(R.id.maps) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        binding.root.requestFocus()
-        binding.searchView.apply {
-            setOnClickListener {
-                isIconified = false
-            }
-        }
+        skeleton = binding.clParentCard.createSkeleton()
 
         availabilityViewModel.getAvailability(searchKey)
         availabilityAdapter = AvailabilityAdapter({ lat, long, key ->
@@ -80,25 +79,12 @@ class AvailabilityActivity :
 
         val layoutParams = binding.motionLayout.layoutParams as CoordinatorLayout.LayoutParams
         bottomSheetBehavior = layoutParams.behavior as BottomSheetBehavior
+    }
 
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.motionLayout.progress = slideOffset
-            }
-        })
-
-        binding.searchView.setOnQueryTextListener(
-            DebounceQuerySearchListener(lifecycle) {
-                searchKey = if (it.isEmpty()) defaultKeyword else it.toKeywordPattern()
-                availabilityViewModel.getAvailability(searchKey)
-            })
-
+    override fun initObserver() {
         availabilityViewModel.availability.observe(this, {
             when (it) {
-                is ResultData.Loading -> Unit
+                is ResultData.Loading -> skeleton.showSkeleton()
                 is ResultData.Success -> {
                     binding.containerDefaultState.afterMeasured {
                         bottomSheetBehavior.setPeekHeight(
@@ -119,14 +105,44 @@ class AvailabilityActivity :
                     binding.containerMarkerClickedState.gone()
                     availabilityAdapter.submitList(it.data)
                     addMarkersData(it.data)
+                    binding.searchView.setQuery(searchKey.convertKeyword(), false)
+                    binding.searchView.clearFocus()
+                    skeleton.showOriginal()
                 }
-                is ResultData.Error -> Toast.makeText(
-                    this,
-                    it.exception.localizedMessage,
-                    Toast.LENGTH_SHORT
-                ).show()
+                is ResultData.Error -> {
+                    Toast.makeText(
+                        this,
+                        it.exception.localizedMessage,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    skeleton.showOriginal()
+                }
             }
         })
+    }
+
+    override fun initListener() {
+        binding.root.requestFocus()
+        binding.searchView.apply {
+            setOnClickListener {
+                isIconified = false
+            }
+        }
+
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                binding.motionLayout.progress = slideOffset
+            }
+        })
+
+        binding.searchView.setOnQueryTextListener(
+            DebounceQuerySearchListener(lifecycle) {
+                searchKey = if (it.isEmpty()) defaultKeyword else it.toKeywordPattern()
+                availabilityViewModel.getAvailability(searchKey)
+            })
     }
 
     private fun addMarkersData(data: List<Availability>) {
@@ -145,7 +161,26 @@ class AvailabilityActivity :
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map?.uiSettings?.isCompassEnabled = false
-        map?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_style))
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> map?.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.maps_dark_style
+                )
+            )
+            Configuration.UI_MODE_NIGHT_NO -> map?.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.maps_light_style
+                )
+            )
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> map?.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.maps_light_style
+                )
+            )
+        }
         map?.setOnMarkerClickListener {
             onMarkerClicked(it)
         }
