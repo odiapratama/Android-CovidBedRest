@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.bedrest.app.App
 import com.bedrest.app.R
-import com.bedrest.app.data.model.Availability
+import com.bedrest.app.domain.model.Availability
 import com.bedrest.app.utils.ImageUtils.bitmapDescriptorFromVector
 import com.bedrest.app.utils.ZoomLevel
 import com.google.android.gms.maps.CameraUpdateFactory

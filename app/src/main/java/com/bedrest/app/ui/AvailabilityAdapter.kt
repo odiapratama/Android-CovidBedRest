@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bedrest.app.R
-import com.bedrest.app.data.model.Availability
+import com.bedrest.app.domain.model.Availability
 import com.bedrest.app.databinding.ItemAvailabilityBinding
 
 class AvailabilityAdapter(

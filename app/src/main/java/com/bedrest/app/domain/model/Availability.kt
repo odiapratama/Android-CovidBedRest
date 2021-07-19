@@ -1,4 +1,4 @@
-package com.bedrest.app.data.model
+package com.bedrest.app.domain.model
 
 data class Availability(
     val name: String,
