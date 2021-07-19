@@ -1,13 +1,11 @@
 package com.bedrest.app.ui
 
-import android.content.res.Configuration
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.bedrest.app.R
-import com.bedrest.app.base.activity.BaseActivity
 import com.bedrest.app.base.activity.BaseMapsActivity
 import com.bedrest.app.data.model.Availability
 import com.bedrest.app.data.model.ResultData
@@ -27,11 +25,8 @@ import com.bedrest.app.utils.UIUtils.visible
 import com.bedrest.app.utils.ZoomLevel
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.createSkeleton
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -39,8 +34,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AvailabilityActivity :
-    BaseActivity<ActivityAvailabilityBinding>(), OnMapReadyCallback, BaseMapsActivity {
+class AvailabilityActivity : BaseMapsActivity<ActivityAvailabilityBinding>() {
 
     private val availabilityViewModel by viewModels<AvailabilityViewModel>()
     private lateinit var availabilityAdapter: AvailabilityAdapter
@@ -49,8 +43,6 @@ class AvailabilityActivity :
     private val defaultKeyword = "jakarta"
     private var searchKey = defaultKeyword
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-    override var map: GoogleMap? = null
-    override val markerList = ArrayList<Marker>(emptyList())
 
     override fun setLayout() = R.layout.activity_availability
 
@@ -158,34 +150,6 @@ class AvailabilityActivity :
         addMarkers(markers, data)
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        map?.uiSettings?.isCompassEnabled = false
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> map?.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(
-                    this,
-                    R.raw.maps_dark_style
-                )
-            )
-            Configuration.UI_MODE_NIGHT_NO -> map?.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(
-                    this,
-                    R.raw.maps_light_style
-                )
-            )
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> map?.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(
-                    this,
-                    R.raw.maps_light_style
-                )
-            )
-        }
-        map?.setOnMarkerClickListener {
-            onMarkerClicked(it)
-        }
-    }
-
     override fun onMarkerClicked(marker: Marker): Boolean {
         moveCameraTo(marker.position, ZoomLevel.STREETS)
         marker.showInfoWindow()
@@ -221,9 +185,5 @@ class AvailabilityActivity :
         }
 
         return true
-    }
-
-    override fun mapNotReady() {
-        Toast.makeText(this, "Map is not ready yet", Toast.LENGTH_SHORT).show()
     }
 }
