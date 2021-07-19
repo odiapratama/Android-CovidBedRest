@@ -7,7 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.bedrest.app.R
 import com.bedrest.app.base.activity.BaseMapsActivity
-import com.bedrest.app.data.model.Availability
+import com.bedrest.app.domain.model.Availability
 import com.bedrest.app.data.model.ResultData
 import com.bedrest.app.databinding.ActivityAvailabilityBinding
 import com.bedrest.app.utils.DebounceQuerySearchListener
