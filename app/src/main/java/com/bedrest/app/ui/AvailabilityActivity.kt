@@ -102,7 +102,7 @@ class AvailabilityActivity : BaseMapsActivity<ActivityAvailabilityBinding>() {
                 is ResultData.Error -> {
                     Toast.makeText(
                         this,
-                        it.exception.localizedMessage,
+                        it.message ?: getString(R.string.error_response),
                         Toast.LENGTH_SHORT
                     ).show()
                     skeleton.showOriginal()
