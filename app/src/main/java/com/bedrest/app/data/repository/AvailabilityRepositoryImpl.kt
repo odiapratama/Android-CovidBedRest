@@ -3,6 +3,7 @@ package com.bedrest.app.data.repository
 import com.bedrest.app.data.model.Availability
 import com.bedrest.app.data.model.ResultData
 import com.bedrest.app.data.remote.AvailabilityApi
+import com.bedrest.app.utils.ErrorUtils.getError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -15,13 +16,14 @@ class AvailabilityRepositoryImpl @Inject constructor(
         province: String,
         revalidate: Boolean
     ): ResultData<List<Availability>> {
-        val result: ResultData<List<Availability>>
+        var result: ResultData<List<Availability>>
         withContext(Dispatchers.IO) {
             result = try {
                 val response = availabilityApi.getHospitalAvailability(province, revalidate)
-                ResultData.Success(response.data)
+                if (response.status == 200) ResultData.Success(response.data ?: emptyList())
+                else ResultData.Error(response.error)
             } catch (e: Exception) {
-                ResultData.Error(e)
+                ResultData.Error(e.getError())
             }
         }
         return result
