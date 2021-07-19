@@ -38,7 +38,7 @@
                 android:background="@drawable/shape_rounded_white"
                 android:elevation="@dimen/xxsmall"
                 android:focusable="false"
-                app:iconifiedByDefault="true"
+                app:iconifiedByDefault="false"
                 app:queryHint="@string/cari_provinsi_disini"
                 app:layout_constraintTop_toTopOf="parent"
                 app:searchIcon="@drawable/ic_search" />

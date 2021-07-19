@@ -65,7 +65,7 @@ class AvailabilityActivity : BaseMapsActivity<ActivityAvailabilityBinding>() {
 
         suggestionAdapter = ProvinceSuggestionAdapter(getStringArray(R.array.list_provinces)) {
             searchKey = it.toKeywordPattern()
-            availabilityViewModel.getAvailability(searchKey)
+            binding.searchView.setQuery(searchKey.convertKeyword(), false)
         }
         binding.rvSuggestion.adapter = suggestionAdapter
 
@@ -97,8 +97,6 @@ class AvailabilityActivity : BaseMapsActivity<ActivityAvailabilityBinding>() {
                     binding.containerMarkerClickedState.gone()
                     availabilityAdapter.submitList(it.data)
                     addMarkersData(it.data)
-                    binding.searchView.setQuery(searchKey.convertKeyword(), false)
-                    binding.searchView.clearFocus()
                     skeleton.showOriginal()
                 }
                 is ResultData.Error -> {
