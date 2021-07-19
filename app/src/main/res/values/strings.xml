@@ -7,4 +7,6 @@
     <string name="Telpon">Telpon</string>
     <string name="detail_kasur">Detail Kasur</string>
     <string name="prefix_last_update">Diperbaharui %s menit yang lalu</string>
+    <string name="cari_provinsi_disini">Cari provinsi disini</string>
+    <string name="error_response">Terjadi kesalahan pada server. Coba beberapa saat lagi!</string>
 </resources>

@@ -1,13 +1,15 @@
 package com.bedrest.app.utils
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import java.util.*
 
 object StringUtils {
 
-    fun String.toCapitalized() = replaceFirstChar { char ->
-        if (char.isLowerCase()) char.titlecase(Locale.getDefault())
-        else char.toString()
+    fun String.convertKeyword() = split("_").joinToString(" ") { char ->
+        char.replaceFirstChar { it.titlecase(Locale.getDefault()) }
     }
 
     fun String.toKeywordPattern() = lowercase(Locale.getDefault()).replace(" ", "_")
@@ -25,4 +27,8 @@ object StringUtils {
         val lonPattern = Regex("\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)\$")
         return matches(lonPattern)
     }
+
+    @Suppress("BlockingMethodInNonBlockingContext")
+    suspend fun ResponseBody.stringSuspending(): String =
+        withContext(Dispatchers.IO) { string() }
 }
