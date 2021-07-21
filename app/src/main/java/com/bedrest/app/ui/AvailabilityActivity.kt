@@ -7,9 +7,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.bedrest.app.R
 import com.bedrest.app.base.activity.BaseMapsActivity
-import com.bedrest.app.domain.model.Availability
 import com.bedrest.app.data.model.ResultData
 import com.bedrest.app.databinding.ActivityAvailabilityBinding
+import com.bedrest.app.domain.model.Availability
 import com.bedrest.app.utils.DebounceQuerySearchListener
 import com.bedrest.app.utils.IntentUtils.openDialer
 import com.bedrest.app.utils.IntentUtils.openMaps
@@ -37,12 +37,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class AvailabilityActivity : BaseMapsActivity<ActivityAvailabilityBinding>() {
 
     private val availabilityViewModel by viewModels<AvailabilityViewModel>()
-    private lateinit var availabilityAdapter: AvailabilityAdapter
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var suggestionAdapter: ProvinceSuggestionAdapter
+    private lateinit var availabilityAdapter: AvailabilityAdapter
     private lateinit var skeleton: Skeleton
     private val defaultKeyword = "jakarta"
     private var searchKey = defaultKeyword
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun setLayout() = R.layout.activity_availability
 

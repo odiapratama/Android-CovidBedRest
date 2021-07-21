@@ -3,14 +3,12 @@ package com.bedrest.app.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.bedrest.app.data.model.ResultData
 import com.bedrest.app.domain.AvailabilityUseCase
 import com.bedrest.app.domain.model.Availability
 import com.bedrest.app.utils.NetworkUtil.getResponse
+import com.bedrest.app.utils.NetworkUtil.safeApiCall
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,17 +25,15 @@ class AvailabilityViewModel @Inject constructor(
     fun getAvailability(
         province: String
     ) {
-        _availability.value = ResultData.Loading
-        viewModelScope.launch(Dispatchers.IO) {
+        safeApiCall(_availability, {
             hospitalList.clear()
             getResponse(
                 availabilityUseCase.getHospitalAvailability(province),
-                _availability,
                 doOnSuccess = {
                     hospitalList.addAll(it)
                 }
             )
-        }
+        })
     }
 
     fun findHospital(hospitalCode: String?): Availability? {
