@@ -23,7 +23,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun availabilityUseCase(@AppModule.AvailabilityClientApi availabilityApi: AvailabilityApi): AvailabilityUseCase {
-        return AvailabilityInteractor(availabilityApi)
+    fun availabilityUseCase(availabilityRepository: AvailabilityRepository): AvailabilityUseCase {
+        return AvailabilityInteractor(availabilityRepository)
     }
 }

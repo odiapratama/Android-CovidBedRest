@@ -4,6 +4,7 @@ import com.bedrest.app.domain.model.Availability
 import com.google.gson.annotations.SerializedName
 
 data class AvailabilityItem(
+
     @SerializedName("name")
     val name: String?,
 
@@ -34,7 +35,7 @@ data class AvailabilityItem(
     @SerializedName("lon")
     val lon: String?
 ) {
-    fun toAvalability(): Availability {
+    fun toAvailability(): Availability {
         return Availability(
             name = name.orEmpty(),
             address = address.orEmpty(),

@@ -1,17 +1,18 @@
 package com.bedrest.app.utils
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bedrest.app.data.model.BaseResponse
 import com.bedrest.app.data.model.ResultData
 import com.bedrest.app.utils.ErrorUtils.getError
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 object NetworkUtil {
 
     fun <RESPONSE, EXPECTED> hitApi(
         api: BaseResponse<RESPONSE>,
-        action: (BaseResponse<RESPONSE>) -> EXPECTED
+        action: (BaseResponse<RESPONSE>) -> EXPECTED,
     ): EXPECTED {
         return try {
             if (api.status == 200) action.invoke(api)
@@ -22,29 +23,43 @@ object NetworkUtil {
         }
     }
 
-    fun <T> CoroutineScope.getResponse(
-        api: T,
+    fun <T> ViewModel.safeApiCall(
         data: MutableLiveData<ResultData<T>>,
-        doOnSuccess: ((T) -> Unit)? = null,
-        doOnError: (() -> Unit)? = null
+        block: suspend MutableLiveData<ResultData<T>>.() -> Unit,
+        doOnError: ((Exception) -> Unit)? = null
     ) {
-        this.run {
+        data.postValue(ResultData.Loading)
+        viewModelScope.launch {
             try {
-                data.success(api, doOnSuccess)
+                block(data)
             } catch (e: Exception) {
-                async { data.fail(e.getError(), doOnError) }
+                launch { data.fail(e.getError(), e, doOnError) }
             }
         }
     }
 
-    private fun <T> MutableLiveData<ResultData<T>>.success(data: T, doOnSuccess: ((T) -> Unit)? = null) {
-        this.postValue(ResultData.Success(data))
+    fun <T> MutableLiveData<ResultData<T>>.getResponse(
+        api: T,
+        doOnSuccess: ((T) -> Unit)? = null
+    ) {
+        success(api, doOnSuccess)
+    }
+
+    private fun <T> MutableLiveData<ResultData<T>>.success(
+        data: T,
+        doOnSuccess: ((T) -> Unit)? = null
+    ) {
+        postValue(ResultData.Success(data))
         doOnSuccess?.invoke(data)
     }
 
-    private fun <T> MutableLiveData<ResultData<T>>.fail(error: String, doOnError: (() -> Unit)? = null) {
-        this.postValue(ResultData.Error(error))
-        doOnError?.invoke()
+    private fun <T> MutableLiveData<ResultData<T>>.fail(
+        error: String,
+        e: Exception,
+        doOnError: ((Exception) -> Unit)? = null
+    ) {
+        postValue(ResultData.Error(error))
+        doOnError?.invoke(e)
     }
 
 }
