@@ -61,6 +61,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.google.code.gson:gson:$gson_version"
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
@@ -73,7 +74,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // Skeleton
-    implementation "com.faltenreich:skeletonlayout:3.0.0"
+    implementation "com.faltenreich:skeletonlayout:$skeleton_version"
 
     // Maps
     implementation "com.google.android.gms:play-services-location:$maps_location_version"
